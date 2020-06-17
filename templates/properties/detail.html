@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+  <section class="probootstrap-slider flexslider2 page-inner">
+    <div class="overlay"></div>
+    <div class="probootstrap-wrap-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+
+            <div class="page-title probootstrap-animate">
+              <div class="probootstrap-breadcrumbs">
+                  <a href="#">Home</a><span><a href="{% url 'properties:property_list' %}">Properties</a></span>{{ property_detail }}
+              </div>
+              <h1>{{ property_detail }}</h1>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(../../static/img/slider_1.jpg);"></li>
+      <li style="background-image: url(../../static/img/slider_4.jpg);"></li>
+      <li style="background-image: url(../../static/img/slider_2.jpg);"></li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+  <section class="probootstrap-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p><img src="{{property_detail.image.url}}" class="img-responsive" alt="Free Bootstrap Template by uicookies.com"></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Details</h2>
+          <p>Rent/Sale: {{ property_detail.type }}</p>
+          <p>Price: {{ property_detail.price }} USD</p>
+            <p>GPS Location: {{ property_detail.location }}</p>
+          <p>City: {{ property_detail.state }}</p>
+          <p>Area: {{ property_detail.area }} m2</p>
+          <p>Beds: {{ property_detail.beds }}</p>
+          <p>Baths: {{ property_detail.baths }}</p>
+          <p>Garages: {{ property_detail.garages }}</p>
+          <strong><p>Property_ID: {{ property_detail.ads_id }}</p></strong>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="probootstrap-section">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Reserve This Property</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {% bootstrap_field reserve_form.first_name %}
+                {% bootstrap_field reserve_form.last_name %}
+                {% bootstrap_field reserve_form.email %}
+                {% bootstrap_field reserve_form.notes %}
+                <input type="hidden", value="12345678", name="ads_id">
+                {% buttons %}
+                    <button type="submit" class="btn btn-primary">Reserve</button>
+                {% endbuttons %}
+            </form>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}

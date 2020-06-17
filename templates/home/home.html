@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+  <section class="probootstrap-slider flexslider">
+    <div class="probootstrap-wrap-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="probootstrap-home-search probootstrap-animate">
+              <form action="{% url 'properties:property_list' %}" method="post">
+                <h2 class="heading">Search your next dream home here</h2>
+                <div class="probootstrap-field-group">
+                  <div class="probootstrap-fields">
+                    
+                    <div class="search-field">
+                      <i class="icon-location2"></i>
+                        {% csrf_token %}
+                      <input type="text" name = 'q' class="form-control" placeholder="Enter address, ZIP code, Neighborhoods">
+                    </div>
+                    <div class="search-category">
+                      <i class="icon-chevron-down"></i>
+                      <select name="property_type" id="" class="form-control">
+                        <option value="Rent">For Rent</option>
+                        <option value="Sale">For Sale</option>
+                      </select>
+                    </div>
+                  </div>
+                  <button class="btn btn-success" type="submit"><i class="icon-magnifying-glass t2"></i> Start Search</button>
+                </div>
+              </form>
+              <p class="mb0 text-left"><small>A free HTML5 template by <a href="https://uicookies.com/">uicookies.com</a> under license <a href="https://uicookies.com/license">Creative Commons 3.0</a></small> </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(img/slider_1.jpg);" class="overlay"></li>
+      <li style="background-image: url(img/slider_4.jpg);" class="overlay"></li>
+      <li style="background-image: url(img/slider_2.jpg);" class="overlay"></li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+  <section class="probootstrap-section probootstrap-section-lighter">
+    <div class="container">
+      <div class="row">
+          {% for highlight in highlights %}
+        <div class="col-md-4">
+          <div class="probootstrap-card text-center probootstrap-animate">
+            <div class="probootstrap-card-media svg-sm colored">
+              <img src="{{ highlight.image.url }}" class="svg" alt="Free HTML5 Template by uicookies.com">
+            </div>
+            <div class="probootstrap-card-text">
+              <h2 class="probootstrap-card-heading">{{highlight.name}}</h2>
+              <p>{{highlight.detail}}</p>
+              <p><a href="#">Find out more</a></p>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- END: section -->
+
+  <section class="probootstrap-section">
+    <div class="container">
+      <div class="row heading">
+        <h2 class="mt0 mb50 text-center">Explore Our Neighborhoods</h2>
+      </div>
+      <div class="row probootstrap-gutter10">
+        {% for state in state_list %}
+            <div class="col-md-6 col-sm-6">
+                <a href="{% url 'properties:property_neighbors' state.id %}" class="probootstrap-hover-overlay">
+                <img src="/media/{{state.image}}" alt="Free Bootstrap Template by uicookies.com" class="img-responsive">
+                <div class="probootstrap-text-overlay">
+                    <h3>{{state.name}}</h3>
+                    <p>{{state.property_count}}</p>
+                </div>
+                </a>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- END: section -->
+
+  <section class="probootstrap-section probootstrap-section-lighter">
+    <div class="container">
+      <div class="row heading">
+        <h2 class="mt0 mb50 text-center">Featured Listing</h2>
+      </div>
+      <div class="row">
+          {% for property in property_list %}
+              {% ifequal property.featured "Yes" %}
+            <div class="col-md-4 col-sm-6">
+          <div class="probootstrap-card probootstrap-listing">
+            <div class="probootstrap-card-media">
+              <img src="{{property.image.url}}" class="img-responsive" alt="Free HTML5 Template by uicookies.com">
+              <a href="#" class="probootstrap-love"><i class="icon-heart"></i></a>
+            </div>
+            <div class="probootstrap-card-text">
+                <h2 class="probootstrap-card-heading"><a href="{% url 'properties:property_detail' property.id %}">{{property}}</a></h2>
+                <div class="probootstrap-listing-location">
+                    <i class="icon-location2"></i> <span>{{property.location}} / <a href="{% url 'properties:property_neighbors' property.state_id %}">{{property.state}}</a></span>
+                </div>
+                {% ifequal property.type 'Sale' %}
+                    <div class="probootstrap-listing-category for-sale"><span>{{property.type}}</span></div>
+                    <div class="probootstrap-listing-price"><strong>$ {{property.price}}</strong></div>
+                {% endifequal %}
+                {% ifequal property.type 'Rent' %}
+                    <div class="probootstrap-listing-category for-rent"><span>{{ property.type }}</span></div>
+                    <div class="probootstrap-listing-price"><strong>{{ property.price }}</strong> / month</div>
+                {% endifequal %}
+            </div>
+            <div class="probootstrap-card-extra">
+              <ul>
+                <li>
+                  Area
+                  <span>{{property.area}} m2</span>
+                </li>
+                <li>
+                  Beds
+                  <span>{{ property.beds }}</span>
+                </li>
+                <li>
+                  Baths
+                  <span>{{ property.baths }}</span>
+                </li>
+                <li>
+                  Garages
+                  <span>{{ property.garages }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- END listing -->
+        </div>
+              {% endifequal %}
+          {% endfor %}
+      </div>
+    </div>
+  </section>
+
+ {% for history in history_all %}
+  <section class="probootstrap-half">
+
+    <div class="image-wrap">
+      <div class="image" style="background-image: url({% static 'img/slider_2.jpg' %});"></div>
+    </div>
+    <div class="text">
+      <p class="mb10 subtitle">{{history.title}}</p>
+      <h3 class="mt0 mb40">{{ history.sub_title }}</h3>
+      <p>{{ history.body }}</p>
+      <p><a href="#" class="btn btn-primary mb10">Find out more</a></p>
+
+    </div>
+  </section>
+     {% endfor %}
+
+  <section class="probootstrap-section">
+    <div class="container">
+      <div class="row heading">
+        <h2 class="mt0 mb50 text-center">Our Services</h2>
+      </div>
+      <div class="row">
+          {% for service in services_list %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 probootstrap-animate">
+          <div class="service text-center">
+             <div class="probootstrap-card-media svg-sm colored">
+              <img src="{{ service.image.url }}" class="svg" alt="Free HTML5 Template by uicookies.com">
+            </div>
+            <h2 class="heading">P{{service.name}}</h2>
+            <p>{{service.detail}}</p>
+          </div>
+
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- END: section -->
+    <section class="probootstrap-section probootstrap-section-lighter">
+    <div class="container">
+      <div class="row heading">
+        <h2 class="mt0 mb50 text-center">Our Agents</h2>
+      </div>
+      <div class="row">
+          {% for agent in agents %}
+        <div class="col-md-3 col-sm-6">
+          <div class="probootstrap-card probootstrap-person text-left">
+            <div class="probootstrap-card-media">
+              <img src="{{agent.image.url}}" class="img-responsive" alt="Free HTML5 Template by uicookies.com">
+            </div>
+            <div class="probootstrap-card-text">
+              <h2 class="probootstrap-card-heading mb0">{{agent.name}}</h2>
+              <p><small>{{agent.title}}</small></p>
+                <p><small>{{agent.phone_number}}</small></p>
+              <p><a href="#">View Details</a></p>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

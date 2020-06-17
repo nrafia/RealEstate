@@ -1,0 +1,135 @@
+Metadata-Version: 2.1
+Name: django-bootstrap4
+Version: 2.0.1
+Summary: Bootstrap support for Django projects
+Home-page: https://github.com/zostera/django-bootstrap4
+License: BSD-3-Clause
+Keywords: django,django-bootstrap4,bootstrap4,bootstrap
+Author: Dylan Verheul
+Author-email: dylan@zostera.nl
+Requires-Python: >=3.6,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 2.2
+Classifier: Framework :: Django :: 3.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Utilities
+Requires-Dist: beautifulsoup4 (>=4.8.0,<5.0.0)
+Requires-Dist: django (>=2.2,<4.0)
+Requires-Dist: importlib-metadata (>=1.5.0,<2.0.0); python_version < "3.8"
+Project-URL: Documentation, https://django-bootstrap4.readthedocs.io/
+Project-URL: Repository, https://github.com/zostera/django-bootstrap4
+Description-Content-Type: text/x-rst
+
+======================
+Bootstrap 4 for Django
+======================
+
+.. image:: https://travis-ci.org/zostera/django-bootstrap4.svg?branch=develop
+    :target: https://travis-ci.org/zostera/django-bootstrap4
+
+.. image:: https://img.shields.io/coveralls/zostera/django-bootstrap4/master.svg
+    :target: https://coveralls.io/r/zostera/django-bootstrap4?branch=master
+
+.. image:: https://img.shields.io/pypi/v/django-bootstrap4.svg
+    :target: https://pypi.python.org/pypi/django-bootstrap4
+    :alt: Latest PyPI version
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/ambv/black
+
+Bootstrap 4 integration for Django.
+
+
+Goal
+----
+
+The goal of this project is to seamlessly blend Django and Bootstrap 4.
+
+
+Requirements
+------------
+
+- Django >= 2.1 (and `compatible Python versions <https://docs.djangoproject.com/en/2.2/faq/install/#what-python-version-can-i-use-with-django>`_)
+
+
+Documentation
+-------------
+
+The full documentation is at https://django-bootstrap4.readthedocs.io/
+
+
+Installation
+------------
+
+1. Install using pip:
+
+   ``pip install django-bootstrap4``
+
+   Alternatively, you can install download or clone this repo and call ``pip install -e .``.
+
+2. Add to ``INSTALLED_APPS`` in your ``settings.py``:
+
+   ``'bootstrap4',``
+
+3. In your templates, load the ``bootstrap4`` library and use the ``bootstrap_*`` tags:
+
+
+Example template
+----------------
+
+   .. code:: Django
+
+    {% load bootstrap4 %}
+
+    {# Display a form #}
+
+    <form action="/url/to/submit/" method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        {% endbuttons %}
+    </form>
+
+
+Demo
+----
+
+A demo app is provided in `demo`. You can run it from your virtualenv with `python manage.py runserver`.
+
+
+Bugs and suggestions
+--------------------
+
+If you have found a bug or if you have a request for additional functionality, please use the issue tracker on GitHub.
+
+https://github.com/zostera/django-bootstrap4/issues
+
+
+License
+-------
+
+You can use this under BSD-3-Clause. See `LICENSE
+<LICENSE>`_ file for details.
+
+
+Author
+------
+
+Developed and maintained by `Zostera <https://zostera.nl/>`_.
+
+Original author & Development lead: `Dylan Verheul <https://github.com/dyve>`_.
+
+Thanks to everybody that has contributed pull requests, ideas, issues, comments and kind words.
+
+Please see AUTHORS.rst for a list of contributors.
+

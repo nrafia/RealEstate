@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block body %}
+  <section class="probootstrap-slider flexslider2 page-inner">
+    <div class="overlay"></div>
+    <div class="probootstrap-wrap-banner">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+
+            <div class="page-title probootstrap-animate">
+              <div class="probootstrap-breadcrumbs">
+                <a href="#">Home</a><span>About</span>
+              </div>
+              <h1>Contact</h1>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="slides">
+      <li style="background-image: url(img/slider_1.jpg);"></li>
+      <li style="background-image: url(img/slider_4.jpg);"></li>
+      <li style="background-image: url(img/slider_2.jpg);"></li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+  
+  <section class="probootstrap-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <form action="#" method="post" class="probootstrap-form mb60">
+              {% bootstrap_form contact_form %}
+                {% csrf_token %}
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary" id="submit" name="submit" value="Send Message">
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-3 col-md-push-1">
+          <h4>Contact Details</h4>
+            {% for contact in contact_us %}
+          <ul class="with-icon colored">
+            <li><i class="icon-location2"></i> <span>{{contact.location}}</span></li>
+            <li><i class="icon-mail"></i><span>{{contact.email}}</span></li>
+            <li><i class="icon-phone2"></i><span>{{contact.phone_number}}</span></li>
+          </ul>
+
+          <h4>Feedback</h4>
+          <p>{{ contact.feed_back }}</p>
+          <p><a href="#">Learn More</a></p>
+            {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
